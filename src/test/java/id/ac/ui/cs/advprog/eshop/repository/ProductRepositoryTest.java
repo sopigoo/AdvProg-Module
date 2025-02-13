@@ -80,6 +80,33 @@ class ProductRepositoryTest {
         assertNotNull(result);
         assertEquals("Sampo Cap Bagus", result.getProductName());
         assertEquals(20, result.getProductQuantity());
+
+        Product savedProduct = productRepository.findById(productId);
+        assertNotNull(savedProduct);
+        assertEquals("Sampo Cap Bagus", savedProduct.getProductName());
+        assertEquals(20, savedProduct.getProductQuantity());
+    }
+
+    @Test
+    void testEditProductWithInvalidData() {
+        Product product = new Product();
+        String productId = "d3f8e3a2-5b46-4c9b-9c3f-8a2e9d4e3b6f";
+        product.setProductId(productId);
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(10);
+        productRepository.create(product);
+
+        Product updatedProduct = new Product();
+        updatedProduct.setProductName(null);
+        updatedProduct.setProductQuantity(-5);
+
+        Product result = productRepository.edit(updatedProduct, productId);
+        assertNull(result);
+
+        Product savedProduct = productRepository.findById(productId);
+        assertNotNull(savedProduct);
+        assertEquals("Sampo Cap Bambang", savedProduct.getProductName());
+        assertEquals(10, savedProduct.getProductQuantity());
     }
 
     @Test
