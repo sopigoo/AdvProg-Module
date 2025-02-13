@@ -41,6 +41,10 @@ public class ProductRepository {
     }
 
     public Product edit(Product editedProduct, String productId) {
+        if (editedProduct == null || editedProduct.getProductName() == null || editedProduct.getProductQuantity() < 0) {
+            return null; // return null for invalid data
+        }
+
         Product existingProduct = findById(productId);
         if (existingProduct != null) {
             existingProduct.setProductName(editedProduct.getProductName());
