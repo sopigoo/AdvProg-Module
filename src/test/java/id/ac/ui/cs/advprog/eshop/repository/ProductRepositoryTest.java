@@ -62,4 +62,59 @@ class ProductRepositoryTest {
         assertEquals(product2.getProductId(), savedProduct.getProductId());
         assertFalse(productIterator.hasNext());
     }
+
+    @Test
+    void testEditProduct() {
+        Product product = new Product();
+        String productId = "d3f8e3a2-5b46-4c9b-9c3f-8a2e9d4e3b6f";
+        product.setProductId(productId);
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(10);
+        productRepository.create(product);
+
+        Product updatedProduct = new Product();
+        updatedProduct.setProductName("Sampo Cap Bagus");
+        updatedProduct.setProductQuantity(20);
+
+        Product result = productRepository.edit(updatedProduct, productId);
+        assertNotNull(result);
+        assertEquals("Sampo Cap Bagus", result.getProductName());
+        assertEquals(20, result.getProductQuantity());
+    }
+
+    @Test
+    void testEditNonExistentProduct() {
+        Product updatedProduct = new Product();
+        updatedProduct.setProductName("Sampo Cap Suko");
+        updatedProduct.setProductQuantity(30);
+
+        Product result = productRepository.edit(updatedProduct, "d3f8e3a2-5b46-4c9b-9c3f-8a2e9d4e3b6f");
+        assertNull(result);
+    }
+
+    @Test
+    void testEditProductWhenMoreThanOneExists() {
+        Product product1 = new Product();
+        String productId1 = "d3f8e3a2-5b46-4c9b-9c3f-8a2e9d4e3b6f";
+        product1.setProductId(productId1);
+        product1.setProductName("Sampo Cap Bambang");
+        product1.setProductQuantity(10);
+        productRepository.create(product1);
+
+        Product product2 = new Product();
+        String productId2 = "a7b2c5d8-9e6f-4a3b-b2d9-f4e5c6a7b8d9";
+        product2.setProductId(productId2);
+        product2.setProductName("Sampo Cap Budi");
+        product2.setProductQuantity(20);
+        productRepository.create(product2);
+
+        Product updatedProduct = new Product();
+        updatedProduct.setProductName("Sampo Cap Usup");
+        updatedProduct.setProductQuantity(15);
+
+        Product result = productRepository.edit(updatedProduct, productId1);
+        assertNotNull(result);
+        assertEquals("Sampo Cap Usup", result.getProductName());
+        assertEquals(15, result.getProductQuantity());
+    }
 }
