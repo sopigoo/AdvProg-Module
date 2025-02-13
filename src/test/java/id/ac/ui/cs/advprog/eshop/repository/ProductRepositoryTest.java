@@ -66,7 +66,7 @@ class ProductRepositoryTest {
     @Test
     void testEditProduct() {
         Product product = new Product();
-        String productId = "d3f8e3a2-5b46-4c9b-9c3f-8a2e9d4e3b6f";
+        String productId = "eb558e9f-1c39-460e-8860-71af6af63bd6";
         product.setProductId(productId);
         product.setProductName("Sampo Cap Bambang");
         product.setProductQuantity(10);
@@ -90,7 +90,7 @@ class ProductRepositoryTest {
     @Test
     void testEditProductWithInvalidData() {
         Product product = new Product();
-        String productId = "d3f8e3a2-5b46-4c9b-9c3f-8a2e9d4e3b6f";
+        String productId = "eb558e9f-1c39-460e-8860-71af6af63bd6";
         product.setProductId(productId);
         product.setProductName("Sampo Cap Bambang");
         product.setProductQuantity(10);
@@ -122,7 +122,7 @@ class ProductRepositoryTest {
     @Test
     void testEditProductWhenMoreThanOneExists() {
         Product product1 = new Product();
-        String productId1 = "d3f8e3a2-5b46-4c9b-9c3f-8a2e9d4e3b6f";
+        String productId1 = "eb558e9f-1c39-460e-8860-71af6af63bd6";
         product1.setProductId(productId1);
         product1.setProductName("Sampo Cap Bambang");
         product1.setProductQuantity(10);
@@ -148,9 +148,9 @@ class ProductRepositoryTest {
     @Test
     void testDeleteProduct() {
         Product product = new Product();
-        String productId = "a7b2c5d8-9e6f-4a3b-b2d9-f4e5c6a7b8d9";
+        String productId = "a0f9de46-90b1-437d-a0bf-d0821dde9096";
         product.setProductId(productId);
-        product.setProductName("Sampo Cap Kila");
+        product.setProductName("Sampo Cap Usep");
         product.setProductQuantity(5);
         productRepository.create(product);
 
@@ -163,7 +163,7 @@ class ProductRepositoryTest {
 
     @Test
     void testDeleteNonExistentProduct() {
-        productRepository.delete("a7b2c5d8-9e6f-4a3b-b2d9-f4e5c6a7b8d9");
+        productRepository.delete("d3f8e3a2-5b46-4c9b-9c3f-8a2e9d4e3b6f");
         Iterator<Product> iterator = productRepository.findAll();
         assertFalse(iterator.hasNext());
     }
@@ -171,16 +171,16 @@ class ProductRepositoryTest {
     @Test
     void testDeleteWhenMoreThanOneExist() {
         Product product1 = new Product();
-        String productId1 = "d3f8e3a2-5b46-4c9b-9c3f-8a2e9d4e3b6f";
+        String productId1 = "eb558e9f-1c39-460e-8860-71af6af63bd6";
         product1.setProductId(productId1);
-        product1.setProductName("Sampo Cap Banang");
+        product1.setProductName("Sampo Cap Bambang");
         product1.setProductQuantity(10);
         productRepository.create(product1);
 
         Product product2 = new Product();
         String productId2 = "a7b2c5d8-9e6f-4a3b-b2d9-f4e5c6a7b8d9";
         product2.setProductId(productId2);
-        product2.setProductName("Sampo Cap Alang");
+        product2.setProductName("Sampo Cap Budi");
         product2.setProductQuantity(20);
         productRepository.create(product2);
 
