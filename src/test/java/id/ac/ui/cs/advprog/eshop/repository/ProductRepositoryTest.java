@@ -36,6 +36,36 @@ class ProductRepositoryTest {
     }
 
     @Test
+    void testCreateProductWithNullId() {
+        Product product = new Product();
+        product.setProductId(null); // Explicitly set productId to null
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+
+        Product createdProduct = productRepository.create(product);
+
+        assertNotNull(createdProduct.getProductId()); // Ensure a UUID is generated
+        assertFalse(createdProduct.getProductId().isEmpty()); // Ensure the UUID is not empty
+        assertEquals("Sampo Cap Bambang", createdProduct.getProductName());
+        assertEquals(100, createdProduct.getProductQuantity());
+    }
+
+    @Test
+    void testCreateProductWithEmptyId() {
+        Product product = new Product();
+        product.setProductId(""); // Explicitly set productId to an empty string
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+
+        Product createdProduct = productRepository.create(product);
+
+        assertNotNull(createdProduct.getProductId()); // Ensure a UUID is generated
+        assertFalse(createdProduct.getProductId().isEmpty()); // Ensure the UUID is not empty
+        assertEquals("Sampo Cap Bambang", createdProduct.getProductName());
+        assertEquals(100, createdProduct.getProductQuantity());
+    }
+
+    @Test
     void testFindAllIfEmpty() {
         Iterator<Product> productIterator = productRepository.findAll();
         assertFalse(productIterator.hasNext());
@@ -143,6 +173,83 @@ class ProductRepositoryTest {
         assertNotNull(result);
         assertEquals("Sampo Cap Usup", result.getProductName());
         assertEquals(15, result.getProductQuantity());
+    }
+
+    @Test
+    void testEditProductWithNullEditedProduct() {
+        // Create a product to edit
+        Product product = new Product();
+        String productId = "eb558e9f-1c39-460e-8860-71af6af63bd6";
+        product.setProductId(productId);
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(10);
+        productRepository.create(product);
+
+        // Try to edit with a null editedProduct
+        Product result = productRepository.edit(null, productId);
+
+        // Assert that the result is null
+        assertNull(result);
+
+        // Ensure the original product is unchanged
+        Product savedProduct = productRepository.findById(productId);
+        assertNotNull(savedProduct);
+        assertEquals("Sampo Cap Bambang", savedProduct.getProductName());
+        assertEquals(10, savedProduct.getProductQuantity());
+    }
+
+    @Test
+    void testEditProductWithNullProductName() {
+        // Create a product to edit
+        Product product = new Product();
+        String productId = "eb558e9f-1c39-460e-8860-71af6af63bd6";
+        product.setProductId(productId);
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(10);
+        productRepository.create(product);
+
+        // Try to edit with a null productName
+        Product updatedProduct = new Product();
+        updatedProduct.setProductName(null); // Invalid: productName is null
+        updatedProduct.setProductQuantity(20);
+
+        Product result = productRepository.edit(updatedProduct, productId);
+
+        // Assert that the result is null
+        assertNull(result);
+
+        // Ensure the original product is unchanged
+        Product savedProduct = productRepository.findById(productId);
+        assertNotNull(savedProduct);
+        assertEquals("Sampo Cap Bambang", savedProduct.getProductName());
+        assertEquals(10, savedProduct.getProductQuantity());
+    }
+
+    @Test
+    void testEditProductWithNegativeQuantity() {
+        // Create a product to edit
+        Product product = new Product();
+        String productId = "eb558e9f-1c39-460e-8860-71af6af63bd6";
+        product.setProductId(productId);
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(10);
+        productRepository.create(product);
+
+        // Try to edit with a negative productQuantity
+        Product updatedProduct = new Product();
+        updatedProduct.setProductName("Sampo Cap Bagus");
+        updatedProduct.setProductQuantity(-5); // Invalid: productQuantity is negative
+
+        Product result = productRepository.edit(updatedProduct, productId);
+
+        // Assert that the result is null
+        assertNull(result);
+
+        // Ensure the original product is unchanged
+        Product savedProduct = productRepository.findById(productId);
+        assertNotNull(savedProduct);
+        assertEquals("Sampo Cap Bambang", savedProduct.getProductName());
+        assertEquals(10, savedProduct.getProductQuantity());
     }
 
     @Test
