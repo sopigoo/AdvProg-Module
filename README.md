@@ -2,6 +2,9 @@ Name : Siti Shofi Nadhifa <br>
 NPM : 2306152172 <br>
 Class : AdPro B
 
+### Deployment Link
+https://inherent-kellyann-sopigoo-a69023dd.koyeb.app
+
 <details>
 <summary>Module 1 - Coding Standards</summary>
 
@@ -33,9 +36,6 @@ In this project, there are several clean code principles and secure coding pract
 
 <details>
 <summary>Module 2 - CI/CD & DevOps</summary>
-
-### Deployment Link
-https://inherent-kellyann-sopigoo-a69023dd.koyeb.app
 
 ## Reflection
 ### Code Quality Issue(s) fixed
@@ -70,5 +70,38 @@ In terms of CI, I have implemented `ci.yml` which ensures continuous integration
 Additionally, I have also implemented `pmd.yml` which performs static code analysis using PMD to detect bugs and bad practices and `scorecard.yml` which analyzes the repository's security and supply chain health using OSSF scorecard.
 For CD, I integrated my app with `Koyeb` to handle automatic deployments, ensuring that every validated change is deployed without manual intervention.
 This setup streamlines development, reduces the risk of introducing critical bugs into production, and maintains high software reliability and security.
+
+</details>
+
+<details>
+<summary>Module 3 - Maintainability & OO Principles</summary>
+
+## Reflection
+### SOLID Principles applied
+1. **Single Responsibility Principle (SRP)**: Initially, the `CarController` was placed under `ProductController`, even though both had distinct responsibilities.
+   This structure made the code harder to maintain and understand. By separating the two into independent classes, I realized how important it is to assign each class a clear and single responsibility.
+2. **Open/Closed Principle (OCP)**: In the `CarServiceImpl`, OCP is applied by making it extendable through interface implementation.
+   So, whenever I want to add new features, I can simply add new methods to `CarServiceImpl` without changing the existing `CarService` interface.
+3. **Liskov Substitution Principle (LSP)**: `CarController` was extending `ProductController`, but I realized that the Car actually can't replace Product.
+   Therefore, I remove the `extends`, making the Car not inheritance to the Product.
+4. **Interface Segregation Principle (ISP)**: I separated `CarService` and `ProductService` into distinct interfaces, ensuring that each service handles only one aspect of the system.
+   This segregation prevents classes from depending on unnecessary methods.
+5. **Dependency Inversion Principle (DIP)**: Initially, the `CarController` depended on the concrete class `CarServiceImpl`. I refactored the code to depend on the `CarService` interface instead.
+
+### Advantages of applying SOLID principles
+Applying SOLID principles to my project makes the code more maintainable, scalable, and flexible.
+By following SRP, separating `CarController` from `ProductController` allows each class to focus on a single responsibility, making future modifications easier without affecting unrelated parts.
+With OCP, I can add new methods to `CarServiceImpl` without changing the `CarService` interface, ensuring the system remains extensible.
+The removal of inheritance between `CarController` and `ProductController` in accordance with LSP prevents unintended behavior, making the system more consistent.
+ISP helps create smaller, more focused interfaces like `CarService` and `ProductService`, reducing unnecessary dependencies.
+Lastly, DIP allows the controller to depend on the `CarService` interface instead of the concrete implementation, making the system more flexible and easier to test.
+
+### Disadvantages of not applying SOLID principles
+Without applying SOLID principles, the project would become harder to maintain, less scalable, and more prone to errors.
+If SRP was not followed, combining car and product functionalities in one controller would create complex and tightly coupled code, making future changes more difficult.
+Without OCP, adding new features would require modifying existing code, increasing the risk of introducing bugs.
+Ignoring LSP by forcing unrelated classes into inheritance would lead to inconsistent behavior and unexpected errors.
+Without ISP, interfaces would become bloated with unnecessary methods, reducing code efficiency.
+Lastly, not applying DIP would force controllers to depend directly on concrete service implementations, making the system rigid and difficult to adapt when changes or new service variations are needed.
 
 </details>
