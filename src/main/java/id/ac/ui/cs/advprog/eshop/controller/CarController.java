@@ -16,7 +16,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/car")
-class CarController {
+class CarController extends ProductController {
     @Autowired
     private CarServiceImpl carService;
 
