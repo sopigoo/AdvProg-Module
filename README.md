@@ -105,3 +105,25 @@ Without ISP, interfaces would become bloated with unnecessary methods, reducing 
 Lastly, not applying DIP would force controllers to depend directly on concrete service implementations, making the system rigid and difficult to adapt when changes or new service variations are needed.
 
 </details>
+
+<details>
+<summary>Module 4 - Refactoring and TDD</summary>
+
+## Reflection
+### 1. Does TDD flow useful enough? If not, explain things that you need to do next time you make more tests.
+Based on Percival (2017), there are three main objectives in code testing: correctness, maintainability, and productive workflow.
+Throughout the exercise, the Test-Driven Development (TDD) flow helped structure the development process by guiding the implementation through small, incremental steps.
+However, I found it a bit challenging to consistently follow the TDD approach, especially in writing tests before the actual code.
+The process required shifting my mindset to predict how the code should behave beforehand, which was not always easy.
+Despite the challenge, the approach made the development process more organized and ensured that the code met the requirements from the start.
+The TDD flow also encouraged breaking down the features into smaller, more manageable components, which improved maintainability.
+Moving forward, I realize the importance of practicing TDD more consistently and considering additional edge cases to improve the overall coverage of the tests.
+
+### 2. Do the tests successfully followed F.I.R.S.T. principle or not?
+I think the tests followed most of the F.I.R.S.T. principle. The tests were relatively fast and consistent, providing quick feedback.
+They also used appropriate assertions to automatically determine whether a test passed or failed.
+However, there is still room to improve in terms of independence, especially in handling shared data like `paymentData`.
+Additionally, I realize that I haven't fully explored edge cases, which is important for making the tests more robust.
+In the future, I plan to create more isolated and granular tests that cover various scenarios to enhance the overall quality of the unit tests.
+
+</details>
