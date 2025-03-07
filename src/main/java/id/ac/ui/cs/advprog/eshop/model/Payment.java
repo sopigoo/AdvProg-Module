@@ -14,7 +14,7 @@ public class Payment {
     public Payment(String id, String method, Map<String, String> paymentData) {
         this.id = id;
         this.method = method;
-        this.status = PaymentStatus.WAITING.getValue();
+        this.status = PaymentStatus.REJECTED.getValue();
 
         if (paymentData == null) {
             throw new NullPointerException("Payment data cannot be null");
