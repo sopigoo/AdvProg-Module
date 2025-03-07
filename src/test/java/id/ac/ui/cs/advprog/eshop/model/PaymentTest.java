@@ -1,6 +1,7 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
 import static org.junit.jupiter.api.Assertions.*;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.HashMap;
@@ -19,11 +20,11 @@ public class PaymentTest {
 
     @Test
     void testCreatePaymentSuccess() {
-        Payment payment = new Payment("550e8400-e29b-41d4-a716-446655440000", "VOUCHER", "SUCCESS", paymentData);
+        Payment payment = new Payment("550e8400-e29b-41d4-a716-446655440000", "VOUCHER", PaymentStatus.SUCCESS.getValue(), paymentData);
 
         assertEquals("550e8400-e29b-41d4-a716-446655440000", payment.getId());
         assertEquals("VOUCHER", payment.getMethod());
-        assertEquals("SUCCESS", payment.getStatus());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
         assertEquals(paymentData, payment.getPaymentData());
     }
 
@@ -31,7 +32,7 @@ public class PaymentTest {
     void testCreatePaymentWithMultiplePaymentData() {
         paymentData.put("discountCode", "DISCOUNT2025");
 
-        Payment payment = new Payment("550e8400-e29b-41d4-a716-446655440000", "VOUCHER", "SUCCESS", paymentData);
+        Payment payment = new Payment("550e8400-e29b-41d4-a716-446655440000", "VOUCHER", PaymentStatus.SUCCESS.getValue(), paymentData);
 
         assertEquals(3, payment.getPaymentData().size());
         assertEquals("DISCOUNT2025", payment.getPaymentData().get("discountCode"));
@@ -39,20 +40,20 @@ public class PaymentTest {
 
     @Test
     void testSetStatusToFailed() {
-        Payment payment = new Payment("550e8400-e29b-41d4-a716-446655440000", "CARD", "WAITING", paymentData);
-        payment.setStatus("FAILED");
-        assertEquals("FAILED", payment.getStatus());
+        Payment payment = new Payment("550e8400-e29b-41d4-a716-446655440000", "CARD", PaymentStatus.WAITING.getValue(), paymentData);
+        payment.setStatus(PaymentStatus.FAILED.getValue());
+        assertEquals(PaymentStatus.FAILED.getValue(), payment.getStatus());
     }
 
     @Test
     void testSetStatusToInvalidStatus() {
-        Payment payment = new Payment("550e8400-e29b-41d4-a716-446655440000", "CARD", "WAITING", paymentData);
+        Payment payment = new Payment("550e8400-e29b-41d4-a716-446655440000", "CARD", PaymentStatus.WAITING.getValue(), paymentData);
         assertThrows(IllegalArgumentException.class, () -> payment.setStatus("MEOW"));
     }
 
     @Test
     void testCreatePaymentDefaultStatus() {
         Payment payment = new Payment("550e8400-e29b-41d4-a716-446655440000", "CARD", paymentData);
-        assertEquals("WAITING", payment.getStatus());
+        assertEquals(PaymentStatus.WAITING.getValue(), payment.getStatus());
     }
 }
