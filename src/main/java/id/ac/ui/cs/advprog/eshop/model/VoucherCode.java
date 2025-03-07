@@ -18,5 +18,24 @@ public class VoucherCode extends Payment {
     }
 
     private void validateVoucher(Map<String, String> paymentData) {
+        String voucherCode = paymentData.get("voucherCode");
+        if (voucherCode == null || voucherCode.length() != 16 || !voucherCode.startsWith("ESHOP")) {
+            setStatus(PaymentStatus.FAILED.getValue());
+            return;
+        }
+
+        String suffix = voucherCode.substring(5); // Get characters from index 5 to 15
+        int digitCount = 0;
+        for (char c : suffix.toCharArray()) {
+            if (Character.isDigit(c)) {
+                digitCount++;
+            }
+        }
+
+        if (digitCount == 8) {
+            setStatus(PaymentStatus.SUCCESS.getValue());
+        } else {
+            setStatus(PaymentStatus.FAILED.getValue());
+        }
     }
 }
