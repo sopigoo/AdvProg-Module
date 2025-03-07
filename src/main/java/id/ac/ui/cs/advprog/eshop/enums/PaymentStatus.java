@@ -4,9 +4,9 @@ import lombok.Getter;
 
 @Getter
 public enum PaymentStatus {
-    REJECTED("REJECTED"),
     SUCCESS("SUCCESS"),
-    FAILED("FAILED");
+    FAILED("REJECTED"),
+    PENDING("PENDING");
 
     private final String value;
 
@@ -16,7 +16,7 @@ public enum PaymentStatus {
 
     public static boolean contains(String param) {
         for (PaymentStatus status : PaymentStatus.values()) {
-            if (status.name().equals(param)) {
+            if (status.getValue().equals(param)) {
                 return true;
             }
         }

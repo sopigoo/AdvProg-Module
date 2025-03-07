@@ -40,20 +40,20 @@ public class PaymentTest {
 
     @Test
     void testSetStatusToFailed() {
-        Payment payment = new Payment("550e8400-e29b-41d4-a716-446655440000", "VOUCHER", PaymentStatus.REJECTED.getValue(), paymentData);
+        Payment payment = new Payment("550e8400-e29b-41d4-a716-446655440000", "VOUCHER", PaymentStatus.PENDING.getValue(), paymentData);
         payment.setStatus(PaymentStatus.FAILED.getValue());
         assertEquals(PaymentStatus.FAILED.getValue(), payment.getStatus());
     }
 
     @Test
     void testSetStatusToInvalidStatus() {
-        Payment payment = new Payment("550e8400-e29b-41d4-a716-446655440000", "VOUCHER", PaymentStatus.REJECTED.getValue(), paymentData);
+        Payment payment = new Payment("550e8400-e29b-41d4-a716-446655440000", "VOUCHER", PaymentStatus.SUCCESS.getValue(), paymentData);
         assertThrows(IllegalArgumentException.class, () -> payment.setStatus("MEOW"));
     }
 
     @Test
     void testCreatePaymentDefaultStatus() {
         Payment payment = new Payment("550e8400-e29b-41d4-a716-446655440000", "VOUCHER", paymentData);
-        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
+        assertEquals(PaymentStatus.PENDING.getValue(), payment.getStatus());
     }
 }
